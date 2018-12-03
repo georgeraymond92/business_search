@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- reset css -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <!-- custom css -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- bootstrap CSS  -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- fontAwesome -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- firebase -->
+  <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+  <!-- google maps API -->
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAesTaGBcfwg7KuTooDZd7jnOI7xGffDus&libraries=places"></script>
+  <title>ByteMedia_project1</title>
+</head>
+<body >
+  <header>
+    <div class="container-fluid text-light">
+    
+      <!--jumbotron-->
+      <div class="jumbotron">
+        <div class="row  px-4 py-3">
+          <div id="storedUserData" class="col-12 col-md-6 text-center text-md-left">
+    
+            <!--shopping Cart!-->
+            <div id="shoppingCartAmount">
+              <button type="button" class="btn btn-outline-primary btn-sm">
+                <span class="glyphicon glyphicon-shoppingcart"></span>shoppingCart
+              </button>
+            </div>
+    
+          </div>
+          <div class="col-12 col-md-6 d-flex d-flex justify-content-center justify-content-md-end">
+            <h1 class="d-flex align-self-center mt-3 mt-md-0">EVENT PLANNER</h1>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+  </header>
+  <div class="container-fluid flex-grow">
+    <div class="row">
+      <!-- right section -->
+      <section  id="rightSection" class="col-md-6 order-md-2 pt-2">
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <h2 class="panel-title text-center">Search for services in your area</h2>
+          </div>
+          <br>
+          <div class="panel-body">
+            <!-- Entry Form -->
+            <form>
+              <div class="form-group">
+                <input type="text" class="form-control" id="location" placeholder="location">
+                <div class="input-group-btn">
+                    <input type="text" class="form-control" id="search" placeholder="search">
+                    <!-- button -->
+                    <button type="submit" class="btn btn-primary" id="userInputButton">Submit</button>
+                </div>
+                
+              </div>
+            </form>
+            <br>
+            <div id="listen" class="table table-hover">
+              <!-- google api map renders to DOM here -->
+              <div id="mapDiv">
+                <div id="map"></div>
+              </div>
+              <!-- end map render -->
+              <div  id="display-objects" class="rightBottom">
+
+                <!-- this is where the objects appear after you run your search -->
+
+              </div>
+
+              <br>
+              <br>
+
+              <button type="submit" class="btn btn-primary" id="clear-results">clear search</button>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- left section -->
+      <section  id="leftSection" class="col-md-6 order-md-1 pt-1">
+          <h2 class="text-center">Responsive Business cards</h2>
+        <div id="left-side">
+
+          <!-- this is where the thumbnail divs will append to on click -->
+        
+        </div>
+        
+      </section>
+    </div>
+  </div>
+  <footer class="bg-dark text-white mt-4">
+    <div class="container-fluid py-3">
+      <div class="row">
+        <div class="col-md-3">
+          <h5>Project 1-ByteMedia</h5>
+        </div>
+        <div class="col-md-3">col1</div>
+        <div class="col-md-3">col2</div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="collapse" data-target="#demo">Compliment!</button>
+            <div id="demo" class="collapse">
+              <textarea class="form-control" rows="5" id="comment"></textarea>
+              <button type="button" class="btn btn-outline-secondary btn-sm">submit</button>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <span class="small">
+            <br>UCLA Full Stack Web Dev Bootcamp 2018</span>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3 text-left small align-self-end">©2018 byteMedia</div>
+      </div>
+    </div>
+  </footer>
+  <!-- webapp logic -->
+  <script type="text/javascript" src="assets/javascript/logic.js"></script>
+  <!-- DOM click event logic -->
+  <script type="text/javascript" src="assets/javascript/click.js"></script>
+  <!-- JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
