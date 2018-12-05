@@ -8,5 +8,5 @@ $(".card-body").on('click', 'button', function(){
   let rowId = $(this).attr('row-id'); //Pull the attribute from your button
   let tr =  $(this).parent().parent(); //Define the TR itself
   tr.remove();
-
 });
+

@@ -3,9 +3,8 @@ var locationInput = "";
 var typeInput = "";
 var startMapCenter = new google.maps.LatLng(37.09024,-95.71289100000001);
 var address
-var resultsZone = $('#display-objects');
-var resultZoneTwo = $('#left-side');
-var listen = $("#display-objects");
+var fireKey
+var resultsZone = $('#render-results');
 
 
 $("#clear-results").on('click', function() {
@@ -13,31 +12,41 @@ $("#clear-results").on('click', function() {
 });
 
 resultsZone.on('click', '#pinned_bizzcard', function() {
-
-//   $(this).appendTo('#left-side');
   add($(this));
-  console.log($('#thumbnailimg').val().trim());
 });
 
 
 $(document).on('click', '#dltbutton', function() {
   event.stopPropagation();
   $(this).parent().remove();
+  fireKey = $(this).parent().data("fire");
+  removeItem(fireKey);
 });
+
+function removeItem(item) {
+  database.ref(item).remove().then(function(){
+    console.log("Item Removed");
+  }).catch(function(err){
+    console.log("Failed " + err.message);
+  });
+};
 
 function appendHTML(img , name , address, phone , rating ) {
   var businessCard = "";
-  businessCard += "<div class='container' id='pinned_bizzcard'>"
-  businessCard += "<img id='thumbnailimg' src=" + img + ">"
-  businessCard += "<div class='card-body textWrap'>"
-  businessCard += "<h5 id='bizzName'>" + name + "</h5>"
-  businessCard += "<p class='card-text' id='address1'>Address:" + address + "</p>"
-  businessCard += "<p class='card-text' id='phoneNumber1'>Phone Number:" + phone + "</p>"
-  businessCard += "<p class='card-text' id='rating1'>Ratings:" + rating + "</p>"
+  businessCard += "<div class='card-template' id='pinned_bizzcard'>"
+  businessCard += "<div class='contents-card'>"
+  businessCard += "<div id='img-holder'>"
+  businessCard += "<img class='thumbnailImg' src=" + img + ">"
+  businessCard += "</div>"
+  businessCard += "<div id='bizz-data'>"
+  businessCard += "<h5 id='name-data'>" + name + "</h5>"
+  businessCard += "<p id='address-data'>Address:" + address + "</p>"
+  businessCard += "<p id='phone-data'>Phone Number:" + phone + "</p>"
+  businessCard += "<p id='rating-data'>Ratings:" + rating + "</p>"
   businessCard += "</div>"
   businessCard += "</div>"
 
-  $("#display-objects").append(businessCard);
+  resultsZone.append(businessCard);
 
   $(businessCard).on('click', '#dltbutton', function() {
     console.log("hi");
@@ -46,7 +55,7 @@ function appendHTML(img , name , address, phone , rating ) {
 };
 
 function clearResults() {
-    $("#display-objects").empty();
+    resultsZone.empty();
 };
 
 function initialize() {
@@ -131,7 +140,7 @@ $("#userInputButton").on("click", function() {
                   console.log(resultsTwo.formatted_phone_number);
                   console.log(resultsTwo.rating);
                   // function appendHTML(img , name , phone , rating )
-                  appendHTML(resultsTwo.photos[0].getUrl({"maxWidth":200,"minWidth":200}) , resultsTwo.name , resultsTwo.formatted_address , resultsTwo.formatted_phone_number , resultsTwo.rating)
+                  appendHTML(resultsTwo.photos[0].getUrl({"maxWidth":200,"minWidth":200}) , resultsTwo.name , resultsTwo.formatted_address , resultsTwo.formatted_phone_number , resultsTwo.rating);
                 }
               }
 
@@ -174,62 +183,62 @@ google.maps.event.addDomListener(window, 'load', initialize);
 //  firebase
 
 var config = {
-  apiKey: "AIzaSyCTaFSGJiTN5r5qpLnXTOLgECDvUfWXvr4",
-  authDomain: "byteme-200420.firebaseapp.com",
-  databaseURL: "https://byteme-200420.firebaseio.com",
-  projectId: "byteme-200420",
-  storageBucket: "byteme-200420.appspot.com",
-  messagingSenderId: "65093761395"
+  apiKey: "AIzaSyCCEyzM-m-7cfyMCZBTBEGSK5LDBgcSj7I",
+  authDomain: "businesssearch-60a3e.firebaseapp.com",
+  databaseURL: "https://businesssearch-60a3e.firebaseio.com",
+  projectId: "businesssearch-60a3e",
+  storageBucket: "businesssearch-60a3e.appspot.com",
+  messagingSenderId: "503853592240"
 };
 
 firebase.initializeApp(config);
 
 var database = firebase.database();
 
-console.log(firebase);
 
 function add(card) {
-    event.preventDefault();
+  event.preventDefault();
 
-    var newBusiness = {
-        img: $(card).find("#thumbnailimg").attr("src"),
-        name: $(card).find("#bizzName").text().trim(),
-        address: $(card).find("#address1").text().trim(),
-        phone: $(card).find("#phoneNumber1").text().trim(),
-        rating: $(card).find("#rating1").text().trim()
+  var newBusiness = {
+    img: $(card).find(".thumbnailImg").attr("src"),
+    name: $(card).find("#name-data").text().trim(),
+    address: $(card).find("#address-data").text().trim(),
+    phone: $(card).find("#phone-data").text().trim(),
+    rating: $(card).find("#rating-data").text().trim()
+  };
 
-    };
-
-    database.ref().push(newBusiness);
-
+  database.ref().push(newBusiness);
 
 };
 
+
 database.ref().on("child_added", function(snapshot){
 
-    var thumbnailObject = snapshot.val();
-
-
-    console.log(snapshot.val().img);
+    var root = snapshot.ref;
+    var key = database.ref(root).key;
+  
+    console.log("path to object: " + root);
+    console.log("key: " + key);
     console.log(snapshot.val().name);
     console.log(snapshot.val().address);
     console.log(snapshot.val().phone);
     console.log(snapshot.val().rating);
 
     var businessCard = "";
-        businessCard += "<div class='container' id='pinned_bizzcard'>"
-        businessCard += "<button class=‘btn btn-primary dlt_btn’ id='dltbutton' type=‘button’>Delete</button>" 
-        businessCard += "<img id='thumbnailimg' src=" + snapshot.val().img + ">"
-        businessCard += "<div class='card-body textWrap'>"
-        businessCard += "<h5 id='bizzName'>" + snapshot.val().name + "</h5>"
-        businessCard += "<p class='card-text' id='address'>Address:" + snapshot.val().address + "</p>"
-        businessCard += "<p class='card-text' id='phoneNumber'>Phone Number:" + snapshot.val().phone + "</p>"
-        businessCard += "<p class='card-text' id='rating'>Ratings:" + snapshot.val().rating + "</p>"
+        businessCard += "<div class='card-template' data-fire='" + key + "' id='pinned_bizzcard'>"
+        businessCard += "<button class=‘btn btn-primary dlt_btn’ id='dltbutton' type=‘button’>Delete</button>"
+        businessCard += "<div class='contents-card'>"
+        businessCard += "<div id='img-holder'>" 
+        businessCard += "<img class='thumbnailImg' src=" + snapshot.val().img + ">"
+        businessCard += "</div>"
+        businessCard += "<div id='bizz-data'>"
+        businessCard += "<h5 id='name-data'>" + snapshot.val().name + "</h5>"
+        businessCard += "<p id='address-data'>Address:" + snapshot.val().address + "</p>"
+        businessCard += "<p id='phone-data'>Phone Number:" + snapshot.val().phone + "</p>"
+        businessCard += "<p id='rating-data'>Ratings:" + snapshot.val().rating + "</p>"
         businessCard += "</div>"
         businessCard += "</div>"
      
-    $("#left-side").append(businessCard);
-
-
+    $("#saved-contain").append(businessCard);
 
 });
