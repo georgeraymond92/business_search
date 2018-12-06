@@ -2,9 +2,12 @@ var map;
 var locationInput = "";
 var typeInput = "";
 var startMapCenter = new google.maps.LatLng(37.09024,-95.71289100000001);
-var address
-var fireKey
+var address;
+var fireKey;
 var resultsZone = $('#render-results');
+var templateSrc = $('#thumbnail-template').html();
+var templateReady = Handlebars.compile(templateSrc);
+
 
 
 $("#clear-results").on('click', function() {
@@ -133,14 +136,28 @@ $("#userInputButton").on("click", function() {
 
               function callback(resultsTwo, status) {
                 if (status == google.maps.places.PlacesServiceStatus.OK) {
-                  console.log(resultsTwo);
-                  console.log(resultsTwo.photos[0].getUrl({"maxWidth":300,"minWidth":300}));
-                  console.log(resultsTwo.name);
-                  console.log(resultsTwo.formatted_address);
-                  console.log(resultsTwo.formatted_phone_number);
-                  console.log(resultsTwo.rating);
+                  var cardData = {
+                    img: resultsTwo.photos[0].getUrl({"maxWidth":300,"minWidth":300}),
+                    name: resultsTwo.name,
+                    address: resultsTwo.formatted_address,
+                    phone: resultsTwo.formatted_phone_number,
+                    rating: resultsTwo.rating
+                  }
+                  console.log(cardData);
+
+                  var thumbnailHb = templateReady(cardData);
+
+                  $("#render-results").append(thumbnailHb);
+
+
+                  // console.log(resultsTwo);
+                  // console.log(resultsTwo.photos[0].getUrl({"maxWidth":300,"minWidth":300}));
+                  // console.log(resultsTwo.name);
+                  // console.log(resultsTwo.formatted_address);
+                  // console.log(resultsTwo.formatted_phone_number);
+                  // console.log(resultsTwo.rating);
                   // function appendHTML(img , name , phone , rating )
-                  appendHTML(resultsTwo.photos[0].getUrl({"maxWidth":200,"minWidth":200}) , resultsTwo.name , resultsTwo.formatted_address , resultsTwo.formatted_phone_number , resultsTwo.rating);
+                  // appendHTML(resultsTwo.photos[0].getUrl({"maxWidth":200,"minWidth":200}) , resultsTwo.name , resultsTwo.formatted_address , resultsTwo.formatted_phone_number , resultsTwo.rating);
                 }
               }
 
@@ -226,19 +243,41 @@ database.ref().on("child_added", function(snapshot){
 
     var businessCard = "";
         businessCard += "<div class='card-template' data-fire='" + key + "' id='pinned_bizzcard'>"
-        businessCard += "<button class=‘btn btn-primary dlt_btn’ id='dltbutton' type=‘button’>Delete</button>"
+        businessCard += "<button id='dltbutton' type=‘button’>Delete</button>"
         businessCard += "<div class='contents-card'>"
         businessCard += "<div id='img-holder'>" 
         businessCard += "<img class='thumbnailImg' src=" + snapshot.val().img + ">"
         businessCard += "</div>"
         businessCard += "<div id='bizz-data'>"
         businessCard += "<h5 id='name-data'>" + snapshot.val().name + "</h5>"
-        businessCard += "<p id='address-data'>Address:" + snapshot.val().address + "</p>"
-        businessCard += "<p id='phone-data'>Phone Number:" + snapshot.val().phone + "</p>"
-        businessCard += "<p id='rating-data'>Ratings:" + snapshot.val().rating + "</p>"
+        businessCard += "<p id='address-data'>" + snapshot.val().address + "</p>"
+        businessCard += "<p id='phone-data'>" + snapshot.val().phone + "</p>"
+        businessCard += "<p id='rating-data'>" + snapshot.val().rating + "</p>"
         businessCard += "</div>"
         businessCard += "</div>"
      
     $("#saved-contain").append(businessCard);
 
 });
+
+
+// Teting with handlebars 
+// $(document).ready(function() {
+
+  // var templateSrc = $('#thumbnail-template').html();
+  // var templateReady = Handlebars.compile(templateSrc);
+
+  // var testCardContent = {
+  //   img: 'assets/images/travel.jpg',
+  //   name: "test",
+  //   address: "test",
+  //   phone: "test",
+  //   ratign: "test"
+  // }
+
+  // var thubnailHb = templateReady(testCardContent);
+
+  // $("#render-results").html(thubnailHb);
+
+
+// });

@@ -4,16 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <!-- reset css -->
-  <!-- <link rel="stylesheet" href="assets/css/reset.css"> -->
   <!-- custom css -->
   <link rel="stylesheet" href="assets/css/style.css">
-  <!-- jQuery -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <!-- firebase -->
-  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
-  <!-- google maps API -->
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAesTaGBcfwg7KuTooDZd7jnOI7xGffDus&libraries=places"></script>
   <title>Business Search Sample Project</title>
 </head>
 <body >
@@ -44,6 +36,36 @@
     </div>
     <div id="saved-contain"></div>
   </div>
+  <br>
+  <br>
+  <p id="mark">George Raymond 2018</p>
+  <br>
+  
+
+  <script id="thumbnail-template" type="text/x-handlebars-template">
+      <div class="card-template" id="pinned_bizzcard">
+        <div class="contents-card">
+            <div id="img-holder">
+                <img  class="thumbnailImg" src="{{img}}">
+            </div>
+            <div id="bizz-data">
+                <h5 id="name-data">Business Name: {{name}}</h5>
+                <p id="address-data">Address: {{address}}</p>
+                <p id="phone-data">Phone Number: {{phone}}</p>
+                <p id="rating-data">Rating: {{rating}}</p>
+            </div>
+        </div>
+      </div>
+  </script>
+
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- Handlebars.js -->
+  <script src="assets/javascript/vendor/scripts/handlebars-v4.0.12.js"></script>
+  <!-- firebase -->
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+  <!-- google maps API -->
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAesTaGBcfwg7KuTooDZd7jnOI7xGffDus&libraries=places"></script>
   <!-- webapp logic -->
   <script type="text/javascript" src="assets/javascript/logic.js"></script>
   <!-- DOM click event logic -->
