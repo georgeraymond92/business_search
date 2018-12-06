@@ -9,30 +9,6 @@ body {
   height: 125px;
 }
 
-.card-template {
-  border: 2px solid black;
-  margin: 5px;
-  background-color: lightgrey;
-  min-height: 170px;
-}
-
-.thumbnailImg {
-  max-width: 150px;
-  max-height: 150px;
-  margin: auto;
-}
-
-.contents-card {
-  margin: 10px;
-}
-
-#img-holder {
-  height:150px;
-  width: 150px;
-  margin-right: 15px;
-  float:left;
-}
-
 #clear-results {
   margin-left: 30%;
   height:50px;
@@ -117,10 +93,6 @@ button {
   grid-column: 3/6;
   grid-row: 1/3;
   margin:0 auto;
-}
-
-#dltbutton {
-  float: right;
 }
 
 #userInputButton {

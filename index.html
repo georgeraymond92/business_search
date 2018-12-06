@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!-- custom css -->
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/card.css">
   <title>Business Search Sample Project</title>
 </head>
 <body >
@@ -43,20 +44,38 @@
   
 
   <script id="thumbnail-template" type="text/x-handlebars-template">
-      <div class="card-template" id="pinned_bizzcard">
+      <div class="card-template" data-fire="{{key}}" id="pinned_bizzcard">
+        <button id='dltbutton' type=‘button’>Delete</button>
         <div class="contents-card">
-            <div id="img-holder">
-                <img  class="thumbnailImg" src="{{img}}">
-            </div>
-            <div id="bizz-data">
-                <h5 id="name-data">Business Name: {{name}}</h5>
-                <p id="address-data">Address: {{address}}</p>
-                <p id="phone-data">Phone Number: {{phone}}</p>
-                <p id="rating-data">Rating: {{rating}}</p>
-            </div>
+          <div id="img-holder">
+            <img  class="thumbnailImg" src="{{img}}">
+          </div>
+          <div id="bizz-data">
+            <h5 id="name-data">Business Name: {{name}}</h5>
+            <p id="address-data">Address: {{address}}</p>
+            <p id="phone-data">Phone Number: {{phone}}</p>
+            <p id="rating-data">Rating: {{rating}}</p>
+          </div>
         </div>
       </div>
   </script>
+
+  <script id="thumbnail-template-fire" type="text/x-handlebars-template">
+    <div class="card-template" data-fire="{{key}}" id="pinned_bizzcard">
+      <button id='dltbuttonfire' type=‘button’>Delete</button>
+      <div class="contents-card">
+        <div id="img-holder">
+          <img  class="thumbnailImg" src="{{img}}">
+        </div>
+        <div id="bizz-data">
+          <h5 id="name-data">Business Name: {{name}}</h5>
+          <p id="address-data">Address: {{address}}</p>
+          <p id="phone-data">Phone Number: {{phone}}</p>
+          <p id="rating-data">Rating: {{rating}}</p>
+        </div>
+      </div>
+    </div>
+</script>
 
   <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

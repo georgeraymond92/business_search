@@ -1,0 +1,31 @@
+.card-template {
+    border: 2px solid black;
+    margin: 5px;
+    background-color: lightgrey;
+    min-height: 185px;
+}
+
+.thumbnailImg {
+    max-width: 150px;
+    max-height: 150px;
+    margin: auto;
+}
+
+.contents-card {
+    margin: 10px;
+}
+
+#img-holder {
+    height:150px;
+    width: 150px;
+    margin-right: 15px;
+    float:left;
+}
+
+#dltbutton {
+    float: right;
+}
+
+#dltbuttonfire {
+    float: right;
+}
