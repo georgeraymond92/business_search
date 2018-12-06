@@ -4,6 +4,7 @@ $("#pinned_bizzcard").on("click", function() {
 
 $("#userInputButton").on("click", function() {
   event.preventDefault();
+  resultsZone.empty();
   runQuery();
 });
 
